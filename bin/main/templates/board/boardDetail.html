@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(function(){
+	$("#btn-list").click(function(){
+		location.href="boardList.bo";
+	});
+	//수정하기 이벤트
+	$("#btn-edit").click(function(){
+		var frm=$("#form");
+		frm.attr("action", "updateBoard.bo");
+		frm.submit();
+	});
+	//삭제하기
+	$("#btn-delete").click(function(){
+		var frm=$("#form");
+		frm.attr("action", "deleteBoard.bo");
+		frm.submit();
+	});
+
+});
+
+</script>
+<style type="text/css">
+	.file-list a{
+	display: block;
+	}
+</style>
+</head>
+<body>
+	<div>
+	<h2>게시판 상세 정보</h2>
+		<form id="form" method="post">
+			<input type="hidden" name="no" th:value="${detail.no}">
+			<table>
+				<tr>
+					<td>게시글 번호</td>
+					<td th:text="${detail.no}"></td>
+					<td>조회수</td>
+					<td th:text="${detail.count}"></td>
+				</tr>
+				<tr>
+					<td>작성자</td>
+					<td th:text="${detail.writer}"></td>
+					<td>작성일</td>
+					<td th:text="${detail.reg_date}"></td>
+				</tr>
+				<tr>
+					<td>제목</td>
+					<td colspan="3">
+						<input type="text" name="title" th:value="${detail.title}">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<textarea rows="5" cols="50" name="content"
+						th:text="${detail.content}"></textarea>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<div class="file-list">
+			<!-- thymeleaf에서 '|'를 사용하여 변수와 문자열을 혼합하여 출력 -->
+			<!-- th:href 속성을 이용해서 링크 설정 
+			쿼리스트링 부분 표현은 파라미터 전달방법형식으로 하되 2개 이상인경우 , 로 군분하여 전달(no=${list.no}, b_no=${list.b_no}) -->
+			<!-- @{/board/downloadFile.bo(no=${list.no})} ==> board/downloadFile.bo?no=20 -->
+			<a th:each="list : ${detail.fileList}" 
+				th:href="@{/board/downloadFile.bo(no=${list.no})}"   
+				th:text="|${list.file_name}(${list.file_size}kb)|"></a>
+		</div>
+		<input id="btn-list" type="button" value="목록보기">
+		<input id="btn-edit" type="button" value="수정하기">
+		<input id="btn-delete" type="button" value="삭제하기">
+	</div>
+</body>
+</html>

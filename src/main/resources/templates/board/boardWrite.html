@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div>
+	<h2>게시판 등록</h2>
+	<form action="/board/insertBoard.bo" method="post" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>작성자</td>
+				<td>
+					<input type="text" name="writer">
+				</td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td>
+					<input type="text" name="title">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<textarea rows="5" cols="50" name="content"></textarea>					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="file" name="files" multiple="multiple">				
+				</td>
+			</tr>
+			
+		</table>
+		
+		<p>
+			<input type="submit" value="저장">	
+		</p>
+	</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>에러처리페이지</title>
+</head>
+<body>
+	<div>
+		<h2>공통 에러페이지</h2>
+		<div>
+		서버의 문제로 처리가 불가능 합니다.<br>
+		고객센터로 문의 바랍니다.
+			<p th:text="${exception}"></p>
+			<ul th:each="list: ${exception.getStackTrace()}"
+				th:text="${list}"></ul>
+		</div>
+	</div>
+
+</body>
+</html>

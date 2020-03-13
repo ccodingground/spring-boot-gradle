@@ -1,0 +1,75 @@
+1. 어드바이스
+	: 어드바이스는 관점의 구현체로 조인포인트에 삽입되어 동작하는것을 의미
+	: 동작하는 시점에 따라 5가지 종류로 구분
+	1> BeforeAdvice  
+		@Before  
+		대상메서드가 실행되기전에 적용할 어드바이스를 정의
+		
+	2> After returning Advice
+		@ArterReturing 
+		대상메서드가 성공적으로 실행되고 결과값을 반환후 적용할 어드바이스를 정의
+		
+	3> After throwing Advice
+		@ArterThrowing 
+		대상메서드에서 예외가 발생했을 때 적용할 어드바이스 정의
+		
+	4> After
+		@Arter 
+		대상메서드가 성공이든 실패든 상관없이 무조건 실행되는 어드바이스 정의
+		
+	5> Around Advice
+		@Around 
+		대상메서드 호출 전후, 예외 발생 등 모든 시점에서 적용할 수 있는 어드바이스
+	
+2. 포인트컷(Pointcut)
+	어드바이스를 적용할 조인포인트를 선별하는 과정이나 그 기능을 정희한 모듈
+	가장많이 쓰는 명시자는  execution
+	
+	*********************
+	1> execution  
+	가장 대표적이고 강력한 지시자로 접근제어자, 리턴타입, 메서드, 파라미너타입, 예외타입등을
+	조합해서 가장 정교한 포인트컷을 만들수 있다.
+	
+	* 는 모든 값이라는 의미
+	.. 은 0개 이상이라는 의미 
+	(파라마터, 메서드, 패키지 등 모든것 
+	패키지 구조 표현 : 하위의 모든 패키지
+	파라미터 표현 : 파라미터 개수와 관계없이 모든 파라미터를 의미)
+	
+	execution(void select*(..))
+	리턴타입이 void이고 메서드 이름이 select로 시작하고 파라미터가 0개이상인 모든 메서드
+	
+	execution(* board.controller.*())
+	모든 리턴타입 이고  board.controller 패키지 밑에 모든 파라미터가 없는 메서드
+	
+	execution(* board.controller.*(..))
+	모든 리턴타입 이고  board.controller 패키지 밑에 모든 파라미터가 0개이상인 메서드
+	
+	execution(* board..select*(*))
+	board패키지아래 모든하위 패키지에 있는 select로 시작하고 파라미터가 한개인 메서드
+	
+	execution(* board..select*(*, *))
+	board패키지아래 모든하위 패키지에 있는 select로 시작하고 파라미터가 두개인 메서드
+	
+	포인트 컷 표현식은  or(||) 와 and(&&) 를 조합해서 사용가능
+	
+	2> within
+	특정 타입에 속하는 메서드를 포인트컷으로 설정
+	
+	within(board.service.boardServiceImpl)
+	board.service.boardServiceImpl클래스의 메서드가 호출될때
+	
+	within(board.service.*Impl)
+	board.service패키지 밑에 Impl로 끝나는 클래스의 메서드가 호출될때 
+	
+	3> bean
+	스프링 빈 이름의 패턴으로 포인트컷을 설정
+	
+	baen(boardServiceImpl)
+	boardServiceImpl이라는 이름의 빈의 메서드가 호출될때
+	
+	baen(*Impl)
+	큰나는 이름이 Impl인  이름을 갖은 빈의 메서드가 호출될때
+	
+	
+	

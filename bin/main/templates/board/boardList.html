@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href=@{/css/mystyle.css}>
+</head>
+<body>
+	<div>
+		<h2>게시판 목록</h2>
+		<table>
+			<colgroup>
+				<col width="10%">
+				<col width="*">
+				<col width="10%">
+				<col width="15%">
+				<col width="15%">
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">글번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">조회수</th>
+					<th scope="col">작성자</th>
+					<th scope="col">작성일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${#lists.size(list)} > 0"  th:each="dto : ${list}">
+					<td th:text="${dto.no}"></td>
+					<td >
+						<a href="/board/openBoardDetail.bo?no="  
+						th:attrappend="href=${dto.no}"
+						th:text="${dto.title}"></a>
+					</td>
+					<td th:text="${dto.count}"></td>
+					<td th:text="${dto.writer}"></td>
+					<td th:text="${dto.reg_date}"></td>
+				</tr>
+				<tr th:unless="${#lists.size(list)} > 0"  >
+					<td colspan="5">조회 된 결과가 없습니다.</td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="/board/openBoardWrite.bo">글쓰기</a>
+	</div>
+</body>
+</html>
